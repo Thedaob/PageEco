@@ -45,13 +45,17 @@ html { scroll-behavior: smooth; }
   --pad-desktop: 64px;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--gray-900);
   background: var(--white);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 img, svg { display: block; max-width: 100%; }
@@ -134,11 +138,10 @@ header {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(255,255,255,0.97);
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  isolation: isolate;
 }
 header.scrolled { border-bottom-color: var(--gray-200); box-shadow: var(--shadow-sm); }
 .nav {
@@ -296,6 +299,50 @@ header.scrolled { border-bottom-color: var(--gray-200); box-shadow: var(--shadow
 @media (min-width: 800px) { .step-connector { display: block; } }
 
 /* ============================================
+   VIDEO DEL PROYECTO
+   ============================================ */
+.video-shell { max-width: 860px; margin: 0 auto; }
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--gray-900);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-200);
+  cursor: pointer;
+}
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.video-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.video-play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  background: rgba(46,125,50,0.92);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.video-play-btn .icon { width: 30px; height: 30px; color: var(--white); margin-left: 2px; }
+.video-frame:hover .video-play-btn { transform: translate(-50%, -50%) scale(1.08); background: var(--green); }
+.video-links { display: flex; align-items: center; justify-content: center; gap: 22px; margin-top: 22px; flex-wrap: wrap; }
+.video-caption { display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--gray-600); font-size: 14.5px; margin: 0; }
+.video-caption .icon { width: 18px; height: 18px; color: var(--green); }
+.video-yt-link { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); font-weight: 600; font-size: 14.5px; }
+.video-yt-link .icon { color: var(--blue); }
+.video-yt-link:hover { text-decoration: underline; }
+
+/* ============================================
    BENEFICIOS - Tabs
    ============================================ */
 .tabs-nav { display: flex; gap: 10px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap; }
@@ -451,6 +498,8 @@ footer { background: var(--gray-900); color: rgba(255,255,255,0.8); padding-top:
 <symbol id="i-quote" viewBox="0 0 24 24"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2-2-2H4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .25-1 1.25c0 1.25.75 1.75 1 1.75z"/><path d="M14 21c3 0 7-1 7-8V5c0-1.25-.757-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h1v2c0 1-1 2-2 2 0 0-1 0-1 1.25 0 1 .75 1.75 1 1.75z"/></symbol>
 <symbol id="i-handshake" viewBox="0 0 24 24"><path d="M11 17a4 4 0 0 0 8 0V5L8 9"/><path d="m2 9 3-3 4 4-3 3z"/><path d="M19 9v8"/><path d="M5 9v8a2 2 0 0 0 2 2h1"/></symbol>
 <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.8 9a2.8 2.8 0 0 0-2.8-1.5c-1.6 0-2.8 1-2.8 2.2 0 3 5.6 1.5 5.6 4.5 0 1.3-1.2 2.3-2.8 2.3a3 3 0 0 1-2.9-1.7"/><line x1="12" y1="6" x2="12" y2="18"/></symbol>
+<symbol id="i-video" viewBox="0 0 24 24"><path d="m23 7-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 21 12 6 21 6 3"/></symbol>
 </defs>
 </svg>
 
@@ -461,6 +510,7 @@ footer { background: var(--gray-900); color: rgba(255,255,255,0.8); padding-top:
     <div class="nav-links">
       <a href="#solucion">Solución</a>
       <a href="#proceso">Proceso</a>
+      <a href="#video">Video</a>
       <a href="#beneficios">Beneficios</a>
       <a href="#impacto">Impacto</a>
       <a href="#faq">FAQ</a>
@@ -475,6 +525,7 @@ footer { background: var(--gray-900); color: rgba(255,255,255,0.8); padding-top:
   <div class="mobile-menu" id="mobileMenu">
     <a href="#solucion">Solución</a>
     <a href="#proceso">Proceso</a>
+    <a href="#video">Video</a>
     <a href="#beneficios">Beneficios</a>
     <a href="#impacto">Impacto</a>
     <a href="#faq">FAQ</a>
@@ -593,7 +644,7 @@ footer { background: var(--gray-900); color: rgba(255,255,255,0.8); padding-top:
 </section>
 
 <!-- ============== SOLUCION ============== -->
-<section class="section-pad" id="solucion">
+<section class="section-pad" id="solucion" style="overflow-x:hidden;">
   <div class="wrap">
     <div class="solution-grid">
       <div class="reveal">
@@ -645,7 +696,7 @@ footer { background: var(--gray-900); color: rgba(255,255,255,0.8); padding-top:
               </div>
             </div>
           </div>
-          <div class="float-card" style="top:8%; right:-12%; padding:10px 14px;">
+          <div class="float-card" style="top:8%; right:-4%; padding:10px 14px;">
             <div class="icon-box bg-green-soft" style="width:32px;height:32px"><svg class="icon" style="width:16px;height:16px"><use href="#i-check"/></svg></div>
             <div><p style="font-size:10px">Impacto semanal</p><strong style="font-size:12.5px">12 kg CO₂</strong></div>
           </div>
@@ -694,8 +745,29 @@ footer { background: var(--gray-900); color: rgba(255,255,255,0.8); padding-top:
   </div>
 </section>
 
+<!-- ============== VIDEO DEL PROYECTO ============== -->
+<section class="section-pad" id="video">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow tag-green"><svg class="icon" style="width:16px;height:16px"><use href="#i-video"/></svg> Conoce el proyecto</span>
+      <h2>Más detalles sobre ECO VALUE</h2>
+      <p>Mira el video completo donde explicamos a fondo el problema, la solución y la visión detrás de ECO VALUE.</p>
+    </div>
+    <div class="video-shell reveal">
+      <div class="video-frame" id="videoFrame" data-embed="https://www.youtube.com/embed/z2oF7TgOZcE?autoplay=1&amp;rel=0" role="button" tabindex="0" aria-label="Reproducir video de ECO VALUE">
+        <img class="video-thumb" src="https://img.youtube.com/vi/z2oF7TgOZcE/hqdefault.jpg" alt="Vista previa del video ECO VALUE" loading="lazy">
+        <span class="video-play-btn"><svg class="icon"><use href="#i-play"/></svg></span>
+      </div>
+      <div class="video-links">
+        <p class="video-caption"><svg class="icon"><use href="#i-play"/></svg> Haz clic en la miniatura para reproducir</p>
+        <a href="https://youtu.be/z2oF7TgOZcE" target="_blank" rel="noopener" class="video-yt-link">Ver en YouTube <svg class="icon" style="width:14px;height:14px"><use href="#i-link"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============== BENEFICIOS - Tabs ============== -->
-<section class="section-pad" id="beneficios">
+<section class="section-pad bg-alt" id="beneficios">
   <div class="wrap">
     <div class="section-head reveal">
       <h2>Beneficios para cada actor</h2>
@@ -946,6 +1018,20 @@ footer { background: var(--gray-900); color: rgba(255,255,255,0.8); padding-top:
       document.body.style.overflow = '';
     });
   });
+
+  /* ---------- Video click-to-play ---------- */
+  var videoFrame = document.getElementById('videoFrame');
+  if (videoFrame) {
+    function loadVideo() {
+      var src = videoFrame.getAttribute('data-embed');
+      if (!src || videoFrame.querySelector('iframe')) return;
+      videoFrame.innerHTML = '<iframe src="' + src + '" title="ECO VALUE - Video del proyecto" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+    }
+    videoFrame.addEventListener('click', loadVideo);
+    videoFrame.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadVideo(); }
+    });
+  }
 
   /* ---------- Scroll reveal + counters ---------- */
   var counted = new WeakSet();
